@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparador de Precios</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Comparador de Precios de Proveedores</h1>
+    <form id="product-form">
+        <input type="text" id="empresa" placeholder="Nombre de la Empresa" required>
+        <input type="text" id="producto" placeholder="Nombre del Producto" required>
+        <input type="number" id="precio" placeholder="Precio Total" step="0.01" required>
+        <input type="number" id="unidad" placeholder="Unidad (Cantidad en Caja)" step="0.01" required>
+        <input type="text" id="vendedor" placeholder="Nombre del Vendedor" required>
+        <input type="text" id="contacto" placeholder="Contacto del Vendedor" required>
+        <input type="datetime-local" id="fecha" required>
+        <button type="submit">Agregar Producto</button>
+    </form>
+    <h2>Lista de Productos</h2>
+    <table id="product-list">
+        <thead>
+            <tr>
+                <th>Empresa</th>
+                <th>Producto</th>
+                <th>Precio Total</th>
+                <th>Precio Unitario</th>
+                <th>Unidad</th>
+                <th>Vendedor</th>
+                <th>Contacto</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <button onclick="printLowestPrices()">Imprimir Productos Más Baratos</button>
+    <footer>
+        <p>Derechos de autor © Luis Hernan Paredes. Prohibida la venta, derechos reservados en SAPI Venezuela.</p>
+        <p>Contacto del fabricante: 04125278450</p>
+        <p>Hago de la administración algo más sencillo. ¡Contáctame!</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

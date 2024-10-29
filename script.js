@@ -1,6 +1,5 @@
 document.getElementById('product-form').addEventListener('submit', function (e) {
     e.preventDefault();
-
     const empresa = document.getElementById('empresa').value;
     const producto = document.getElementById('producto').value;
     const precio = parseFloat(document.getElementById('precio').value);
@@ -8,17 +7,14 @@ document.getElementById('product-form').addEventListener('submit', function (e) 
     const vendedor = document.getElementById('vendedor').value;
     const contacto = document.getElementById('contacto').value;
     const fecha = document.getElementById('fecha').value;
-
     if (!empresa || !producto || isNaN(precio) || isNaN(unidad) || !vendedor || !contacto || !fecha) {
         alert('Por favor, complete todos los campos.');
         return;
     }
-
     const table = document.getElementById('product-list').getElementsByTagName('tbody')[0];
     const newRow = table.insertRow();
-
     const precioUnitario = precio / unidad;
-
+    const fechaFormateada = new Date(fecha).toLocaleString();
     newRow.innerHTML = `
         <td>${empresa}</td>
         <td>${producto}</td>
@@ -27,15 +23,13 @@ document.getElementById('product-form').addEventListener('submit', function (e) 
         <td>${unidad}</td>
         <td>${vendedor}</td>
         <td>${contacto}</td>
-        <td>${fecha}</td>
+        <td>${fechaFormateada}</td>
         <td>
             <button onclick="deleteProduct(this)">Borrar</button>
             <button onclick="editProduct(this)">Editar</button>
         </td>
     `;
-
     updateLowestPrice();
-
     document.getElementById('product-form').reset();
 });
 
@@ -60,22 +54,18 @@ function editProduct(button) {
 function updateLowestPrice() {
     const rows = document.getElementById('product-list').getElementsByTagName('tbody')[0].rows;
     const products = {};
-
     for (let i = 0; i < rows.length; i++) {
         const product = rows[i].cells[1].innerText;
         const price = parseFloat(rows[i].cells[3].innerText);
-
         if (!products[product]) {
             products[product] = price;
         } else if (price < products[product]) {
             products[product] = price;
         }
     }
-
     for (let i = 0; i < rows.length; i++) {
         const product = rows[i].cells[1].innerText;
         const price = parseFloat(rows[i].cells[3].innerText);
-
         if (price === products[product]) {
             rows[i].classList.add('lowest-price');
         } else {
@@ -87,18 +77,15 @@ function updateLowestPrice() {
 function printLowestPrices() {
     const rows = document.getElementById('product-list').getElementsByTagName('tbody')[0].rows;
     const products = {};
-
     for (let i = 0; i < rows.length; i++) {
         const product = rows[i].cells[1].innerText;
         const price = parseFloat(rows[i].cells[3].innerText);
-
         if (!products[product]) {
             products[product] = rows[i];
         } else if (price < parseFloat(products[product].cells[3].innerText)) {
             products[product] = rows[i];
         }
     }
-
     let printContent = '<h1>Productos Más Baratos</h1><table><thead><tr><th>Empresa</th><th>Producto</th><th>Precio Total</th><th>Precio Unitario</th><th>Unidad</th><th>Vendedor</th><th>Contacto</th><th>Fecha</th></tr></thead><tbody>';
     for (const product in products) {
         const cells = products[product].cells;
@@ -110,6 +97,7 @@ function printLowestPrices() {
             <td>${cells[4].innerText}</td>
             <td>${cells[5].innerText}</td>
             <td>${cells[6].innerText}</td>
+            <td>${cells[7].innerText}</td>
         </tr>`;
     }
     printContent += '</tbody></table>';
